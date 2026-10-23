@@ -1,9 +1,10 @@
 // Demo mode for the static page: answers the board's /api/data request with made-up but
 // plausible data (same stations as the real board), so the real app.js runs unchanged.
 (function () {
-  // route -> [headway min, offset min, usual minutes to the target stop]
+  // route -> [headway min, offset min, usual minutes to the target stop]. Lines sharing a row
+  // run at the same headway, half a cycle apart, so their merged times never coincide.
   var LINES = {
-    2: [9, 1, 31], 3: [11, 5, 31], 4: [7, 2, 27], 5: [10, 6, 27], B: [12, 3, 24], Q: [8, 0, 23],
+    2: [10, 1, 31], 3: [10, 6, 31], 4: [8, 2, 27], 5: [8, 6, 27], B: [12, 3, 24], Q: [8, 0, 23],
   };
   function arrivals(route, nowSec) {
     var l = LINES[route], h = l[0] * 60, o = l[1] * 60, out = [];
