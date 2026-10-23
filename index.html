@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>subway time</title>
+  <meta name="description" content="An LED-matrix NYC subway, Citi Bike and weather board running on an old Android phone.">
+  <link rel="icon" href="img/icon.png">
+  <style>
+    @font-face { font-family: Tamzen; src: url("https://lynxgpt.github.io/runrunrun/fonts/Tamzen8x16r.ttf"); }
+    @font-face { font-family: Tamzen; font-weight: bold; src: url("https://lynxgpt.github.io/runrunrun/fonts/Tamzen8x16b.ttf"); }
+    :root {
+      --bg: #0a0a0a; --fg: #ededed; --dim: #8a8a8a; --faint: #5a5a5a; --line: #1f1f1f;
+      --amber: #ffb000; --green: #22d35a;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font: 16px/1.6 Tamzen, ui-monospace, Menlo, monospace;
+      -webkit-font-smoothing: none;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 56px 16px 40px; }
+    h1 { font-size: 40px; line-height: 1; letter-spacing: 0.08em; margin: 0 0 8px; font-weight: bold; }
+    h1 .lit { color: var(--amber); }
+    .tag { color: var(--dim); margin: 0 0 32px; }
+    h2 {
+      font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim);
+      font-weight: normal; margin: 48px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
+    }
+    .screen {
+      position: relative; aspect-ratio: 20 / 9; width: 100%;
+      border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #000;
+      box-shadow: 0 0 0 6px #121212, 0 0 40px rgba(255, 176, 0, 0.06);
+    }
+    .screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .cap { color: var(--faint); font-size: 13px; margin: 10px 0 0; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { padding: 4px 0 4px 20px; position: relative; }
+    li::before { content: "\25CF"; position: absolute; left: 0; color: var(--green); font-size: 11px; top: 7px; }
+    li b { color: var(--fg); font-weight: bold; }
+    li span { color: var(--dim); }
+    p { margin: 0 0 12px; color: var(--dim); }
+    p b { color: var(--fg); }
+    a { color: var(--fg); }
+    a:hover { color: var(--amber); }
+    .photo { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; }
+    .cta {
+      display: inline-block; margin-top: 8px; padding: 8px 14px; border: 1px solid var(--amber);
+      color: var(--amber); text-decoration: none; border-radius: 4px;
+    }
+    .cta:hover { background: var(--amber); color: #000; }
+    footer { text-align: center; margin-top: 64px; font-size: 12px; color: var(--faint); }
+    footer a { color: var(--faint); }
+    footer a:hover { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>SUBWAY <span class="lit">TIME</span></h1>
+    <p class="tag">An LED-matrix NYC subway, Citi Bike &amp; weather board, living on an old Android phone.</p>
+
+    <div class="screen">
+      <iframe src="board/index.html?mask=left" title="Live demo of the board" loading="lazy"></iframe>
+    </div>
+    <p class="cap">Live demo: the real board code, with sample trains.</p>
+
+    <h2>What it shows</h2>
+    <ul>
+      <li><b>Next trains</b> <span>from Franklin Av (2 3 4 5) and 7 Av (B Q), every train in the next 15&ndash;25 min, the ones too soon to catch dimmed</span></li>
+      <li><b>Time to 42 St</b> <span>from the live feed: Times Sq, Grand Central or Bryant Park, depending on the line</span></li>
+      <li><b>Weather</b> <span>with a pixel icon, high/low, humidity and rain chance for the next 3 hours</span></li>
+      <li><b>Citi Bike</b> <span>bikes at two nearby stations, open docks at two more</span></li>
+      <li><b>A big clock</b> <span>with a blinking colon</span></li>
+      <li><b>A Siamese cat</b> <span>that walks the black strip covering a cracked corner, turning liquid to squeeze past the camera</span></li>
+    </ul>
+
+    <h2>How it works</h2>
+    <p>A small <b>Node</b> server runs in <b>Termux</b> on a Galaxy S21 and pulls the MTA's realtime
+      feeds, Citi Bike's station status and Open-Meteo, no API keys needed. <b>Chrome</b> shows the board
+      full screen. Any other device on the same Wi-Fi can open it too.</p>
+    <p>It's built to live on a charger: the screen goes dark at night, the panel shifts a dot every few
+      minutes against burn-in, and charging stops at 60%.</p>
+
+    <h2>On the phone</h2>
+    <img class="photo" src="img/board.png" alt="The board running on the phone" loading="lazy">
+
+    <h2>Make your own</h2>
+    <p>Your stations, your bikes, your weather: it's all one config file. MIT licensed.</p>
+    <a class="cta" href="https://github.com/lynxgpt/subway-board#make-it-yours">github.com/lynxgpt/subway-board &rarr;</a>
+
+    <footer>
+      <p>Made with &hearts; by Claude &middot; <a href="https://lynxgpt.github.io/runrunrun/">run run run</a></p>
+    </footer>
+  </main>
+</body>
+</html>
